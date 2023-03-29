@@ -2,11 +2,11 @@
 
 ## Libraries
 
-[React](https://reactjs.org/)
-[Vite](https://vitejs.dev/)
-[Tailwind CSS](https://tailwindcss.com/)
-[Chackra UI](https://chakra-ui.com/)
-[react-alice-carousel](https://github.com/maxmarinich/react-alice-carousel)
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Chackra UI](https://chakra-ui.com/)
+- [react-alice-carousel](https://github.com/maxmarinich/react-alice-carousel)
 
 ## Installation
 
