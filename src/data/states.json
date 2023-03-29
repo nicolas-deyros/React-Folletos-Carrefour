@@ -1,0 +1,90 @@
+[
+  {
+    "provincia": "CABA/GBA",
+    "id": "caba"
+  },
+  {
+    "provincia": "Buenos Aires Interior",
+    "id": "bsas"
+  },
+  {
+    "provincia": "Catamarca",
+    "id": "catamarca"
+  },
+  {
+    "provincia": "Chaco",
+    "id": "chaco"
+  },
+  {
+    "provincia": "Chubut",
+    "id": "chubut"
+  },
+  {
+    "provincia": "C\u00F3rdoba",
+    "id": "cordoba"
+  },
+  {
+    "provincia": "Corrientes",
+    "id": "corrientes"
+  },
+  {
+    "provincia": "Entre R\u00EDos",
+    "id": "entreRios"
+  },
+  {
+    "provincia": "Formosa",
+    "id": "formosa"
+  },
+  {
+    "provincia": "Jujuy",
+    "id": "jujuy"
+  },
+  {
+    "provincia": "La Pampa",
+    "id": "laPampa"
+  },
+  {
+    "provincia": "La Rioja",
+    "id": "laRioja"
+  },
+  {
+    "provincia": "Mendoza",
+    "id": "mendoza"
+  },
+  {
+    "provincia": "Neuqu\u00E9n",
+    "id": "neuquen"
+  },
+  {
+    "provincia": "R\u00EDo Negro",
+    "id": "rioNegro"
+  },
+  {
+    "provincia": "Salta",
+    "id": "salta"
+  },
+  {
+    "provincia": "San Juan",
+    "id": "sanJuan"
+  },
+  {
+    "provincia": "San Luis",
+    "id": "sanLuis"
+  },
+  {
+    "provincia": "Santa Cruz",
+    "id": "santaCruz"
+  },
+  {
+    "provincia": "Santa Fe",
+    "id": "santaFe"
+  },
+  {
+    "provincia": "Tierra del Fuego",
+    "id": "tierraDelFuego"
+  },
+  {
+    "provincia": "Tucum\u00E1n",
+    "id": "tucuman"
+  }
+]
