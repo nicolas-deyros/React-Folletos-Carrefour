@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import AliceCarousel from 'react-alice-carousel'
+import 'react-alice-carousel/lib/alice-carousel.css'
 import '../cors-anywhere.js'
+import Card2 from './Card2'
 
-export default function Card({ selectedState }) {
+export default function Carousel2({ selectedState }) {
+	const [catalogs, setCatalogs] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
+
 	const [catalogs, setCatalogs] = useState([])
 
 	useEffect(() => {

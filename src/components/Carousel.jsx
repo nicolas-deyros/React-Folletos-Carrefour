@@ -10,11 +10,7 @@ export default function Carousel({ selectedState }) {
 		1024: { items: 3 },
 	}
 
-	const items = [
-		<Card key='1' className='item' selectedState={selectedState} />,
-		<Card key='2' className='item' selectedState={selectedState} />,
-		<Card key='3' className='item' selectedState={selectedState} />,
-	]
+	const items = [<Card key='1' className='item' selectedState={selectedState} />]
 
 	return selectedState === null || selectedState === undefined || selectedState === '' ? null : (
 		<AliceCarousel

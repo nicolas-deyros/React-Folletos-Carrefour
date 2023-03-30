@@ -7,7 +7,7 @@ export default function States({ onStateChange }) {
 		<Select my={3} placeholder='Seleccione su provincia' onChange={onStateChange}>
 			{states.map((state) => {
 				return (
-					<option key={state.id} value={state.provincia}>
+					<option key={state.id} value={state.id}>
 						{state.provincia}
 					</option>
 				)
