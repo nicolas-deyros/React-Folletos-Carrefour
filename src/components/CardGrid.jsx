@@ -72,19 +72,24 @@ export default function CardGrid({ selectedState, selectedLabel }) {
 
 	const fallbackImage = 'https://placehold.co/250x327/png'
 
-	return selectedState === null ||
-		selectedState === undefined ||
-		selectedState === '' ||
-		catalogs.length === 0 ? (
-		<Flex alignItems='center' justifyContent='center' height='100%'>
-			<Alert status='warning'>
-				<AlertIcon />
-				<AlertDescription>
-					No hay folletos disponibles en <b>{selectedLabel}</b>{' '}
-				</AlertDescription>
-			</Alert>
-		</Flex>
-	) : (
+	if (selectedState === null || selectedState === undefined || selectedState === '') {
+		return ''
+	}
+
+	if (catalogs.length === 0) {
+		return (
+			<Flex alignItems='center' justifyContent='center' height='100%'>
+				<Alert status='warning'>
+					<AlertIcon />
+					<AlertDescription>
+						No hay folletos disponibles en <b>{selectedLabel}</b>{' '}
+					</AlertDescription>
+				</Alert>
+			</Flex>
+		)
+	}
+
+	return (
 		<Grid
 			key={selectedState}
 			templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
