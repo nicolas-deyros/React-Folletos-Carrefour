@@ -5,15 +5,18 @@ import CardGrid from './components/CardGrid'
 
 export default function App() {
 	const [selectedState, setSelectedState] = useState(null)
+	const [selectedLabel, setSelectedLabel] = useState(null)
 
 	const handleStateChange = (e) => {
 		setSelectedState(e.target.value)
+		const selectedOption = e.target.options[e.target.selectedIndex]
+		setSelectedLabel(selectedOption.label)
 	}
 
 	return (
 		<>
 			<States onStateChange={handleStateChange} />
-			<CardGrid selectedState={selectedState} />
+			<CardGrid selectedState={selectedState} selectedLabel={selectedLabel} />
 		</>
 	)
 }
