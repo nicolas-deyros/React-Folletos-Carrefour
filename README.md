@@ -2,13 +2,20 @@
 
 This is a React web application that displays promotional brochures for Carrefour, a popular French retail chain. The brochures are displayed in a user-friendly interface that allows users to easily browse through them and find the deals that interest them.
 
+## Demo
+
+![React-Folletos-Carrefour Demo](./screenshots/c4-final.gif)
+[Live Demo](https://react-folletos-carrefour.vercel.app/)
+
 ## Libraries
 
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Chackra UI](https://chakra-ui.com/)
-- [react-alice-carousel](https://github.com/maxmarinich/react-alice-carousel)
+- [node-fetch](https://www.npmjs.com/package/node-fetch)
+- [node-cron](https://www.npmjs.com/package/node-cron)
+- [npm-run-all](https://www.npmjs.com/package/npm-run-all)
 
 ## Features
 
@@ -21,7 +28,7 @@ This is a React web application that displays promotional brochures for Carrefou
 
 1. Clone the repository: `git clone https://github.com/nicolas-deyros/React-Folletos-Carrefour.git`
 2. Install dependencies: `npm install`
-3. Start the development server: `npm start`
+3. Start the development server: `npm dev`
 
 ## Usage
 
