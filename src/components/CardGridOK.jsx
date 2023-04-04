@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import '../cors-anywhere.js'
 import {
 	Grid,
 	GridItem,
@@ -20,7 +21,6 @@ import {
 	AlertDescription,
 } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import catalogs from '../data/catalogs.json'
 
 export default function CardGrid({ selectedState, selectedLabel }) {
 	const [catalogs, setCatalogs] = useState([])
@@ -35,25 +35,18 @@ export default function CardGrid({ selectedState, selectedLabel }) {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				const data = await import('../data/catalogs.json')
+			const response = await fetch(
+				'https://cors-anywhere.herokuapp.com/https://folletos.carrefour.com.ar/metadata/catalogs.json'
+			)
+			const data = await response.json()
+			const filteredData = data[selectedState].filter((catalog) => {
+				const now = new Date()
+				const from = new Date(catalog.from)
+				const to = new Date(catalog.to)
+				return now >= from && now <= to
+			})
 
-				if (data) {
-					// Check if data is not undefined
-					const selectedData = data.default[selectedState]
-					if (selectedData) {
-						const filteredData = selectedData.filter((catalog) => {
-							const now = new Date()
-							const from = new Date(catalog.from)
-							const to = new Date(catalog.to)
-							return now >= from && now <= to
-						})
-						setCatalogs(filteredData)
-					}
-				}
-			} catch (e) {
-				console.log(e)
-			}
+			setCatalogs(filteredData)
 		}
 		fetchData()
 	}, [selectedState])
