@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "npm-run-all --parallel fetch-catalogs serve",
+    "build": "npm-run-all --parallel fetch-catalogs vite build",
     "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs",
     "serve": "serve dist",
     "dev": "npm-run-all --parallel fetch-catalogs- vite",
     "fetch-catalogs-": "nodemon --watch src --exec \"node --experimental-modules src/fetch-catalogs.mjs\"",
     "vite": "vite",
-    "build": "vite build",
+    "builded": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
