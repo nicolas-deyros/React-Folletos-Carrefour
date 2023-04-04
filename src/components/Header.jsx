@@ -1,13 +1,30 @@
 import React from 'react'
+import { Box, Heading } from '@chakra-ui/react'
+import headerBg from '../assets/header-bg.jpg'
 
 export default function Header() {
 	return (
-		<div>
-			<img
-				src='https://carrefourar.vtexassets.com/assets/vtex/assets-builder/carrefourar.theme/53.1.0/folleto/folleto-banner___006acdf15f5757a8ba1dc5481a29acd5.jpg'
-				alt=''
-				className='w-full h-64 object-cover rounded-lg shadow-md'
-			/>
-		</div>
+		<>
+			<Box
+				backgroundImage={`url(${headerBg})`}
+				backgroundSize='cover'
+				height='300px'
+				display='flex'
+				alignItems='center'
+				justifyContent='center'
+				borderRadius='lg'
+				boxShadow='lg'
+				sx={{
+					'@media (max-width: 768px)': {
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
+						height: '200px',
+					},
+				}}>
+				<Heading as='h2' size='xl' color='white'>
+					Folletos Carrefour
+				</Heading>
+			</Box>
+		</>
 	)
 }
