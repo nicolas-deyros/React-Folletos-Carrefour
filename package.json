@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "npm-run-all --parallel init-catalogs fetch-catalogs vite-build",
+    "build": "npm-run-all --parallel fetch-catalogs vite-build",
     "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs",
     "serve": "serve dist",
     "dev": "npm-run-all --parallel init-catalogs  fetch-catalogs- dev-server",
