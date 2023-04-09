@@ -30,10 +30,7 @@ export const fetchCatalogs = async () => {
 			await writeFile(DATA_FILE, JSON.stringify(data))
 			console.log(`Catalogs file saved at ${DATA_FILE}`)
 		}
-
-		return Promise.resolve()
 	} catch (e) {
 		console.error(e)
-		return Promise.reject(e)
 	}
 }

@@ -1,11 +1,11 @@
 import { writeFile } from 'fs/promises'
 import fetch from 'node-fetch'
 import path from 'path'
-import fs from 'fs'
+import { VercelRequest, VercelResponse } from '@vercel/node'
+import { CronJob } from 'cron'
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data')
-// const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
-const DATA_FILE = path.join(process.cwd(), 'api', 'catalogs.json')
+const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
 export const fetchCatalogs = async () => {
 	try {
@@ -30,10 +30,28 @@ export const fetchCatalogs = async () => {
 			await writeFile(DATA_FILE, JSON.stringify(data))
 			console.log(`Catalogs file saved at ${DATA_FILE}`)
 		}
-
-		return Promise.resolve()
 	} catch (e) {
 		console.error(e)
-		return Promise.reject(e)
 	}
 }
+
+export default async (req: VercelRequest, res: VercelResponse) => {
+	if (req.method === 'GET') {
+		await fetchCatalogs()
+		res.status(200).send('Catalogs fetched')
+	} else {
+		res.status(404).send('Not found')
+	}
+}
+
+new CronJob(
+	'00 11 * * *',
+	async () => {
+		console.log('Scheduled job: Fetching catalogs...')
+		await fetchCatalogs()
+		console.log('Catalogs file updated.')
+	},
+	null,
+	true,
+	'America/Argentina/Buenos_Aires'
+)
