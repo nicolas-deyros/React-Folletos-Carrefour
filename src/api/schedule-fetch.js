@@ -10,5 +10,5 @@ export default (req, res) => {
 		})
 	})
 
-	res.status(200).send('Catalogs fetch scheduled.')
+	res.status(200).send('Catalogs fetch scheduled as requested.')
 }
