@@ -1,0 +1,14 @@
+{
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "command": "npm run build"
+  },
+  "functions": {
+    "api/**/*": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  }
+}
