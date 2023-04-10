@@ -1,21 +1,13 @@
 {
+  "functions": {
+    "api/update-catalogs.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "build": {
     "env": {
       "NODE_ENV": "production"
-    },
-    "command": "npm run build",
-    "src": "src/app.js"
-  },
-  "routes": [
-    {
-      "src": "/api/catalogs",
-      "dest": "./api/catalogs.js"
-    }
-  ],
-  "functions": {
-    "api/**/*": {
-      "memory": 128,
-      "maxDuration": 10
     }
   }
 }

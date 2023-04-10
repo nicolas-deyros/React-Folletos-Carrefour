@@ -3,10 +3,9 @@ import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
-const filePath = path.join(process.cwd(), 'src/data/catalogs.json')
+const filePath = new URL('./src/data/catalogs.json', import.meta.url).pathname
 const now = new Date()
 const date = new Date()
-
 console.log(
 	`Catalogs fetched at ${date.toLocaleString('en-US', {
 		timeZone: 'America/Argentina/Buenos_Aires',
@@ -16,11 +15,11 @@ console.log(
 if (fs.existsSync(filePath)) {
 	console.log('Catalogs file exists. Fetching catalogs...')
 	fetchCatalogs()
-
 	cron.schedule('00 11 * * *', () => {
 		console.log('Scheduled job: Fetching catalogs...')
 		fetchCatalogs().then(() => {
 			console.log('Catalogs file updated.')
+			process.exit(0)
 		})
 	})
 } else {
@@ -33,12 +32,9 @@ if (fs.existsSync(filePath)) {
 				console.log('Scheduled job: Fetching catalogs...')
 				fetchCatalogs().then(() => {
 					console.log('Catalogs file updated.')
+					process.exit(0)
 				})
 			})
 		})
 	})
-}
-
-module.exports = (req, res) => {
-	res.status(200).send('Cron job scheduled')
 }
