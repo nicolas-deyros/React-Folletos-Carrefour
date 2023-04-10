@@ -2,13 +2,20 @@
   "functions": {
     "api/update-catalogs.js": {
       "memory": 128,
-      "maxDuration": 10,
-      "schedule": "15 11 * * *"
+      "maxDuration": 10
     }
   },
   "build": {
     "env": {
       "NODE_ENV": "production"
     }
+  },
+  {
+    "crons": [
+      {
+        "path": "/api/cron",
+        "schedule": "30 11 * * *"
+      }
+    ]
   }
 }
