@@ -10,12 +10,10 @@
       "NODE_ENV": "production"
     }
   },
-  {
-    "crons": [
-      {
-        "path": "/api/cron",
-        "schedule": "30 11 * * *"
-      }
-    ]
-  }
+  "crons": [
+    {
+      "path": "/api/cron",
+      "schedule": "30 12 * * *"
+    }
+  ]
 }
