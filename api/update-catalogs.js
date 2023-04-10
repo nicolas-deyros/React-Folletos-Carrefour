@@ -1,3 +1,4 @@
+import fs from 'fs'
 import { writeFile } from 'fs/promises'
 import fetch from 'node-fetch'
 import path from 'path'
@@ -5,7 +6,7 @@ import { VercelRequest, VercelResponse } from '@vercel/node'
 import { CronJob } from 'cron'
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data')
-const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
+const DATA_FILE = path.join(process.cwd(), 'api', 'catalogs.json')
 
 export const fetchCatalogs = async () => {
 	try {
