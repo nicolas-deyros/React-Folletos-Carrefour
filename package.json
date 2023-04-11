@@ -7,10 +7,9 @@
     "build": "npm-run-all --parallel fetch-catalogs vite-build",
     "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs",
     "serve": "serve dist",
-    "dev": "npm-run-all --parallel init-catalogs  fetch-catalogs- dev-server",
-    "fetch-catalogs-": "nodemon --watch src --exec \"node --experimental-modules src/fetch-catalogs.mjs\"",
+    "dev": "npm-run-all --parallel init-catalogs fetch-catalogs dev-server",
     "dev-server": "vite",
-    "init-catalogs": "nodemon --watch src --exec \"node --experimental-modules src/initCatalogs.mjs\"",
+    "init-catalogs": "nodemon --watch src --exec \"node --experimental-modules src/init-catalogs.js\"",
     "vite-build": "vite build",
     "preview": "vite preview"
   },

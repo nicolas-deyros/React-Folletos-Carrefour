@@ -3,7 +3,7 @@ import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
-const filePath = new URL('./src/data/catalogs.json', import.meta.url).pathname
+const filePath = new URL('../api/catalogs.json', import.meta.url).pathname
 const now = new Date()
 const date = new Date()
 console.log(
