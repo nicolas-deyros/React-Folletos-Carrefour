@@ -15,5 +15,11 @@
       "path": "/api/cron.js",
       "schedule": "00 12 * * *"
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/cron",
+      "dest": "../api/cron.js"
+    }
   ]
 }
