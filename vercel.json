@@ -2,7 +2,7 @@
   "functions": {
     "./api/update-catalogs.js": {
       "memory": 128,
-      "maxDuration": 60
+      "maxDuration": 10
     }
   },
   "build": {
