@@ -3,6 +3,8 @@ import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
+
 const logStream = fs.createWriteStream(path.join(__dirname, 'logs.txt'), { flags: 'a' })
 
 console.log = function (message) {
