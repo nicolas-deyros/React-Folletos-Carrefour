@@ -58,3 +58,5 @@ if (fs.existsSync(filePath)) {
 		})
 	})
 }
+
+export { fetchCatalogs }
