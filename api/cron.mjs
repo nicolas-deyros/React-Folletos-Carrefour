@@ -7,7 +7,7 @@ import cron from 'node-cron'
 const DATA_DIR = '/tmp'
 const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
-export const fetchCatalogs = async () => {
+const fetchCatalogs = async () => {
 	try {
 		console.log('Fetching catalogs...')
 		const res = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
@@ -24,11 +24,31 @@ export const fetchCatalogs = async () => {
 	}
 }
 
+const fetchAndUpdateCatalogs = async () => {
+	try {
+		const now = new Date()
+		if (fs.existsSync(DATA_FILE)) {
+			const stat = fs.statSync(DATA_FILE)
+			const mtime = new Date(stat.mtime)
+			const diffHours = (now - mtime) / 1000 / 60 / 60
+			if (diffHours < 24) {
+				console.log(`Catalogs file exists and is less than 24 hours old. Skipping fetch.`)
+				return
+			}
+		}
+		await fetchCatalogs()
+	} catch (e) {
+		console.error(e)
+	}
+}
+
 // Fetch catalogs immediately
-fetchCatalogs()
+fetchAndUpdateCatalogs()
 
 // Schedule cron job to fetch catalogs every day at midnight
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('0 6 * * *', async () => {
 	console.log('Scheduled job: Fetching catalogs...')
-	await fetchCatalogs()
+	await fetchAndUpdateCatalogs()
 })
+
+export default fetchCatalogs
