@@ -4,45 +4,44 @@ import fs from 'fs'
 import path from 'path'
 
 const filePath = new URL('../tmp/catalogs.json', import.meta.url).pathname
+const updateTime = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
 
-// Check if catalogs file exists and is less than 24 hours old
-if (fs.existsSync(filePath)) {
-	const stat = fs.statSync(filePath)
-	const mtime = new Date(stat.mtime)
-	const diffHours = (Date.now() - mtime) / 1000 / 60 / 60
-	if (diffHours < 24) {
-		console.log(`Catalogs file exists and is less than 24 hours old. Skipping fetch.`)
-	} else {
-		console.log(`Catalogs file exists but it's ${diffHours} hours old. Fetching catalogs...`)
-		fetchCatalogs()
-			.then(() => {
-				console.log('Catalogs file updated.')
-			})
-			.catch((error) => {
-				console.error('Error fetching catalogs:', error)
-			})
-	}
-} else {
-	console.log('Catalogs file does not exist. Creating file...')
-	fetchCatalogs()
-		.then(() => {
-			console.log('Catalogs file created.')
-		})
-		.catch((error) => {
-			console.error('Error fetching catalogs:', error)
-		})
+async function updateCatalogs() {
+	console.log('Fetching catalogs...')
+	await fetchCatalogs()
+	console.log('Catalogs file updated.')
 }
 
-// Schedule a job to fetch catalogs every day at 12:00
-cron.schedule('0 12 * * *', () => {
-	console.log('Scheduled job: Fetching catalogs...')
-	fetchCatalogs()
-		.then(() => {
-			console.log('Catalogs file updated.')
-		})
-		.catch((error) => {
-			console.error('Error fetching catalogs:', error)
-		})
+async function fetchAndWriteCatalogs() {
+	try {
+		await updateCatalogs()
+		const catalogs = await fetchCatalogs()
+		const catalogsJSON = JSON.stringify(catalogs)
+		fs.writeFileSync(filePath, catalogsJSON)
+		console.log('Catalogs file written.')
+	} catch (error) {
+		console.error('Error updating catalogs:', error)
+	}
+}
+
+async function initialize() {
+	if (!fs.existsSync(filePath)) {
+		await fetchAndWriteCatalogs()
+	} else {
+		const fileStat = fs.statSync(filePath)
+		const timeSinceUpdate = Date.now() - fileStat.mtimeMs
+		if (timeSinceUpdate >= updateTime) {
+			await fetchAndWriteCatalogs()
+		} else {
+			console.log('Catalogs file exists and is less than 24 hours old. Skipping fetch.')
+		}
+	}
+}
+
+initialize()
+
+cron.schedule('0 12 * * *', async () => {
+	await fetchAndWriteCatalogs()
 })
 
 export default fetchCatalogs
