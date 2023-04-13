@@ -39,4 +39,4 @@ if (fs.existsSync(filePath)) {
 	})
 }
 
-export { fetchCatalogs }
+export default fetchCatalogs
