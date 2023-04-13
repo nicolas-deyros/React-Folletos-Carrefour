@@ -1,29 +1,9 @@
-// import { fetchCatalogs } from './update-catalogs.js'
-// import cron from 'node-cron'
-
-// console.log('Starting cron job...')
-
-// export default function startCronJob() {
-// 	cron.schedule('* * * *', async () => {
-// 		console.log('Updating catalogs...')
-// 		const result = await fetchCatalogs()
-// 		if (result.success) {
-// 			console.log('Catalogs file updated.')
-// 		} else {
-// 			console.error(`Error updating catalogs: ${result.error}`)
-// 		}
-// 	})
-// }
-
-// console.log('Cron job scheduled.')
 import { fetchCatalogs } from './update-catalogs.mjs'
 import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
 const filePath = new URL('../tmp/catalogs.json', import.meta.url).pathname
-
-// const filePath = new URL('../api/catalogs.json', import.meta.url).pathname
 const now = new Date()
 const date = new Date()
 console.log(
