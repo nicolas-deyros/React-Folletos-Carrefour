@@ -10,6 +10,11 @@
       "NODE_ENV": "production"
     }
   },
+  "serverless": {
+    "function": {
+      "timeout": 60
+    }
+  },
   "crons": [
     {
       "path": "/api/cron.js",
