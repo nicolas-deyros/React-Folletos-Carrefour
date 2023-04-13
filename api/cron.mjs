@@ -3,7 +3,13 @@ import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
-const __dirname = path.dirname(new URL(import.meta.url).pathname)
+let __dirname
+try {
+	__dirname = path.dirname(new URL(import.meta.url).pathname)
+} catch (err) {
+	console.error(err)
+	__dirname = ''
+}
 
 const logStream = fs.createWriteStream(path.join(__dirname, 'logs.txt'), { flags: 'a' })
 
