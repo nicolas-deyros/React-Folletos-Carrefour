@@ -1,6 +1,6 @@
 {
   "functions": {
-    "./api/update-catalogs.js": {
+    "api/update-catalogs.js": {
       "memory": 128,
       "maxDuration": 10
     }
