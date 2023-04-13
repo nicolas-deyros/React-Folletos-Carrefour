@@ -2,9 +2,8 @@ import fs from 'fs'
 import { writeFile } from 'fs/promises'
 import fetch from 'node-fetch'
 import path from 'path'
-
-const DATA_DIR = path.join(process.cwd(), 'api')
-const DATA_FILE = path.join(process.cwd(), 'api', 'catalogs.json')
+const DATA_DIR = '/tmp'
+const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
 export const fetchCatalogs = async () => {
 	try {
@@ -22,7 +21,7 @@ export const fetchCatalogs = async () => {
 			const res = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
 			const data = await res.json()
 
-			if (!fs.existsSync(DATA_FILE)) {
+			if (!fs.existsSync(DATA_DIR)) {
 				fs.mkdirSync(DATA_DIR, { recursive: true })
 			}
 
