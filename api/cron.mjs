@@ -18,12 +18,12 @@ if (fs.existsSync(filePath)) {
 	const ageInHours = ageInMs / (1000 * 60 * 60)
 	if (ageInHours < 24) {
 		console.log('Catalogs file exists and is less than 24 hours old. Skipping fetch.')
-		process.exit(0)
+		// process.exit(0)
 	}
 	console.log('Catalogs file exists but is older than 24 hours. Fetching catalogs...')
 	fetchCatalogs().then(() => {
 		console.log('Catalogs file updated.')
-		process.exit(0)
+		// process.exit(0)
 	})
 } else {
 	console.log('Catalogs file does not exist. Creating file...')
@@ -31,7 +31,7 @@ if (fs.existsSync(filePath)) {
 		console.log('Catalogs file created. Fetching catalogs...')
 		fetchCatalogs().then(() => {
 			console.log('Catalogs file updated.')
-			process.exit(0)
+			// process.exit(0)
 		})
 	})
 }
