@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/update-catalogs.js": {
+    "api/update-catalogs.mjs": {
       "memory": 128,
       "maxDuration": 10
     }
@@ -12,14 +12,14 @@
   },
   "crons": [
     {
-      "path": "/api/cron.js",
+      "path": "/api/cron.mjs",
       "schedule": "00 12 * * *"
     }
   ],
   "routes": [
     {
-      "src": "./api/cron.js",
-      "dest": "../api/cron.js"
+      "src": "./api/cron.mjs",
+      "dest": "../api/cron.mjs"
     }
   ]
 }
