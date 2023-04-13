@@ -1,0 +1,4 @@
+
+> folletos-carrefour@0.0.0 cron
+> node api/cron.js
+
