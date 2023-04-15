@@ -3,6 +3,10 @@
     "api/update-catalogs.mjs": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/delete-catalogs.mjs": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "build": {
@@ -12,14 +16,22 @@
   },
   "crons": [
     {
-      "path": "/api/cron.mjs",
-      "schedule": "00 12 * * *"
+      "path": "/api/update-catalogs.mjs",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/delete-catalogs.mjs",
+      "schedule": "30 0 * * *"
     }
   ],
   "routes": [
     {
-      "src": "./api/cron.mjs",
-      "dest": "../api/cron.mjs"
+      "src": "./api/update-catalogs.mjs",
+      "dest": "../api/update-catalogs.mjs"
+    },
+    {
+      "src": "./api/delete-catalogs.mjs",
+      "dest": "../api/delete-catalogs.mjs"
     }
   ]
 }

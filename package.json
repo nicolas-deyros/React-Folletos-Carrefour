@@ -12,8 +12,7 @@
     "dev-server": "vite",
     "init-catalogs": "nodemon --watch src --exec \"node --experimental-modules src/init-catalogs.js\"",
     "vite-build": "vite build",
-    "preview": "vite preview",
-    "test": "playwright test --config=./playwright.config.cjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.4",
