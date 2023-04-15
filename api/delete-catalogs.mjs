@@ -1,8 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 
-const DATA_FILE = path.join(__dirname, '..', 'api', 'catalogs.json')
-
-console.log('Deleting catalogs file...')
-fs.unlinkSync(DATA_FILE)
-console.log('Catalogs file deleted.')
+const catalogsPath = new URL('../api/catalogs.json', import.meta.url)
+fs.rmSync(catalogsPath)
+console.log(`Catalogs file deleted at ${path.resolve(catalogsPath.pathname)}`)

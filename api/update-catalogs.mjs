@@ -2,7 +2,10 @@ import fs from 'fs/promises'
 import fetch from 'node-fetch'
 import path from 'path'
 
-const DATA_DIR = path.join(__dirname, '..', 'api')
+const currentFilePath = new URL(import.meta.url).pathname
+const currentDirPath = path.dirname(currentFilePath)
+
+const DATA_DIR = path.join(currentDirPath, '..', 'api')
 const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
 export const fetchCatalogs = async () => {
