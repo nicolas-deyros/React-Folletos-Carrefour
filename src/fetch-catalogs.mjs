@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 import path from 'path'
 
 const DATA_DIR = path.join(process.cwd(), 'src', 'data')
-const DATA_FILE = path.join(process.cwd(), 'api', 'catalogs.json')
+const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
 export const fetchCatalogs = async () => {
 	try {

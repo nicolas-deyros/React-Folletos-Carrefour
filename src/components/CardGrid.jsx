@@ -20,7 +20,7 @@ import {
 	AlertDescription,
 } from '@chakra-ui/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import catalogs from '../../api/catalogs.json'
+import catalogs from '../data/catalogs.json'
 
 export default function CardGrid({ selectedState, selectedLabel }) {
 	const [catalogs, setCatalogs] = useState([])
@@ -36,7 +36,7 @@ export default function CardGrid({ selectedState, selectedLabel }) {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await import('../../api/catalogs.json')
+				const data = await import('../data/catalogs.json')
 
 				if (data) {
 					// Check if data is not undefined
