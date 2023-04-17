@@ -1,28 +1,61 @@
-import fs from 'fs/promises'
-import fetch from 'node-fetch'
+import { fetchCatalogs } from '../src/fetch-catalogs.mjs'
+import cron from 'node-cron'
+import fs from 'fs'
 import path from 'path'
 
-const currentFilePath = new URL(import.meta.url).pathname
-const currentDirPath = path.dirname(currentFilePath)
+const filePath = new URL('../api/catalogs.json', import.meta.url).pathname
+const now = new Date()
+const date = new Date()
+console.log(
+	`Catalogs fetched at ${date.toLocaleString('en-US', {
+		timeZone: 'America/Argentina/Buenos_Aires',
+	})}`
+)
 
-const DATA_DIR = path.join(currentDirPath, '..', 'api')
-const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
-
-export const fetchCatalogs = async () => {
-	try {
-		console.log('Fetching catalogs...')
-		const res = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
-		const data = await res.json()
-
-		await fs.mkdir(DATA_DIR, { recursive: true })
-		await fs.writeFile(DATA_FILE, JSON.stringify(data))
-		console.log(`Catalogs file saved at ${DATA_FILE}`)
-	} catch (e) {
-		console.error(e)
+if (fs.existsSync(filePath)) {
+	console.log('Catalogs file exists. Fetching catalogs...')
+	fetchCatalogs()
+	let scheduledTasks = 1
+	let completedTasks = 0
+	const finish = () => {
+		completedTasks++
+		if (completedTasks === scheduledTasks) {
+			console.log('All tasks completed. Exiting process...')
+			process.exit()
+		}
 	}
+	cron.schedule('00 11 * * *', () => {
+		console.log('Scheduled job: Fetching catalogs...')
+		scheduledTasks++
+		fetchCatalogs().then(() => {
+			console.log('Catalogs file updated.')
+			finish()
+		})
+	})
+} else {
+	console.log('Catalogs file does not exist. Creating file...')
+	fetchCatalogs().then(() => {
+		console.log('Catalogs file created. Fetching catalogs...')
+		let scheduledTasks = 1
+		let completedTasks = 0
+		const finish = () => {
+			completedTasks++
+			if (completedTasks === scheduledTasks) {
+				console.log('All tasks completed. Exiting process...')
+				process.exit()
+			}
+		}
+		fetchCatalogs().then(() => {
+			console.log('Catalogs file updated.')
+			cron.schedule('00 11 * * *', () => {
+				console.log('Scheduled job: Fetching catalogs...')
+				scheduledTasks++
+				fetchCatalogs().then(() => {
+					console.log('Catalogs file updated.')
+					finish()
+				})
+			})
+			finish()
+		})
+	})
 }
-
-fetchCatalogs()
-console.log('Catalogs file creation scheduled.')
-
-export default fetchCatalogs
