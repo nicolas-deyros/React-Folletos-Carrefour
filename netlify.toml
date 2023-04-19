@@ -1,7 +1,2 @@
-[[plugins]]
-  package = "netlify-plugin-run-cron"
-  [plugins.inputs]
-    timezone = "America/Argentina/Buenos_Aires"
-    jobs = [
-      { command = "node functions/cron.js", frequency = "daily", time = "00:00" }
-    ]
+[functions]
+  node_bundler = "esbuild"
