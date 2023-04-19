@@ -1,5 +1,5 @@
 import { fetchCatalogs } from '../../src/fetch-catalogs.mjs'
-import cron from 'node-cron/dist/cron'
+import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 

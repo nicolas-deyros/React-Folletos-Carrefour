@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "npm-run-all --parallel fetch-catalogs vite-build",
+    "build": "npm-run-all --parallel delete init-catalogs fetch-catalogs vite-build",
     "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs",
     "cron": "node --experimental-modules api/cron.mjs",
     "delete": "node --experimental-modules api/delete-catalogs.mjs",
