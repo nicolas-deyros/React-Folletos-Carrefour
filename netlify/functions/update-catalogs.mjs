@@ -1,66 +1,35 @@
-import { fetchCatalogs } from '../../src/fetch-catalogs.mjs'
+import { promises as fs } from 'fs'
+import fetch from 'node-fetch'
 import cron from 'node-cron'
-import fs from 'fs'
 import path from 'path'
 
 const handler = async (event, context) => {
-	const filePath = path.join(__dirname, '..', 'src', 'data', 'catalogs.json')
+	const DATA_DIR = path.join(process.cwd(), 'src', 'data')
+	const DATA_FILE = path.join(DATA_DIR, 'catalogs.json')
 
-	const now = new Date()
-	const date = new Date()
-	console.log(
-		`Catalogs fetched at ${date.toLocaleString('en-US', {
-			timeZone: 'America/Argentina/Buenos_Aires',
-		})}`
-	)
-
-	if (fs.existsSync(filePath)) {
-		console.log('Catalogs file exists. Fetching catalogs...')
-		fetchCatalogs()
-		let scheduledTasks = 1
-		let completedTasks = 0
-		const finish = () => {
-			completedTasks++
-			if (completedTasks === scheduledTasks) {
-				console.log('All tasks completed. Exiting process...')
-				process.exit()
-			}
-		}
-		cron.schedule('00 11 * * *', () => {
-			console.log('Scheduled job: Fetching catalogs...')
-			scheduledTasks++
-			fetchCatalogs().then(() => {
-				console.log('Catalogs file updated.')
-				finish()
-			})
-		})
-	} else {
-		console.log('Catalogs file does not exist. Creating file...')
-		fetchCatalogs().then(() => {
-			console.log('Catalogs file created. Fetching catalogs...')
-			let scheduledTasks = 1
-			let completedTasks = 0
-			const finish = () => {
-				completedTasks++
-				if (completedTasks === scheduledTasks) {
-					console.log('All tasks completed. Exiting process...')
-					process.exit()
-				}
-			}
-			fetchCatalogs().then(() => {
-				console.log('Catalogs file updated.')
-				cron.schedule('00 11 * * *', () => {
-					console.log('Scheduled job: Fetching catalogs...')
-					scheduledTasks++
-					fetchCatalogs().then(() => {
-						console.log('Catalogs file updated.')
-						finish()
-					})
-				})
-				finish()
-			})
-		})
+	async function deleteCatalogsFile() {
+		await fs.access(DATA_FILE)
+		await fs.unlink(DATA_FILE)
+		console.log('Catalogs file deleted.')
 	}
+
+	async function fetchCatalogs() {
+		const response = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
+		const catalogs = await response.json()
+		await fs.writeFile(DATA_FILE, JSON.stringify(catalogs, null, 2))
+		console.log('Catalogs file created.')
+	}
+
+	async function initCatalogs() {
+		try {
+			await deleteCatalogsFile()
+		} catch (error) {
+			console.log('No catalogs file to delete.')
+		}
+		await fetchCatalogs()
+	}
+
+	cron.schedule('0 0 * * *', initCatalogs)
 }
 
 export { handler }

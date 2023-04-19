@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build"
+  functions = "functions"
+
+[[plugins]]
+  package = "@netlify/plugin-functions-core"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs-cache"
+
+[[plugins]]
+  package = "netlify-plugin-delete-files"
+  [plugins.inputs]
+    patterns = ["src/data/catalogs.json"]
+
+[[plugins]]
+  package = "netlify-plugin-run-cron"
+  [plugins.inputs]
+    timezone = "America/Argentina/Buenos_Aires"
+    jobs = [
+      { command = "node functions/cron.js", frequency = "daily", time = "00:00" }
+    ]
