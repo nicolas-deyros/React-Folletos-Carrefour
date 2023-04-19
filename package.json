@@ -4,14 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "npm-run-all --parallel delete init-catalogs fetch-catalogs vite-build",
-    "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs",
+    "build": "npm run init-catalogs && npm run vite-build",
+    "fetch-catalogs": "node --experimental-modules src/fetch-catalogs.mjs --iterations 2 --verbose",
     "cron": "node --experimental-modules api/cron.mjs",
     "delete": "node --experimental-modules api/delete-catalogs.mjs",
     "serve": "serve dist",
-    "dev": "npm-run-all --parallel delete init-catalogs fetch-catalogs dev-server",
+    "dev": "npm run init-catalogs && npm run dev-server",
     "dev-server": "vite",
-    "init-catalogs": "nodemon --watch src --exec \"node --experimental-modules src/init-catalogs.js\"",
+    "init-catalogs": "node --experimental-modules src/utils/update-catalogs.mjs",
     "vite-build": "vite build",
     "preview": "vite preview"
   },

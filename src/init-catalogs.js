@@ -3,7 +3,7 @@ import cron from 'node-cron'
 import fs from 'fs'
 import path from 'path'
 
-const filePath = new URL('../api/catalogs.json', import.meta.url).pathname
+const filePath = new URL('../src/data/catalogs.json', import.meta.url).pathname
 const now = new Date()
 const date = new Date()
 console.log(
@@ -12,29 +12,31 @@ console.log(
 	})}`
 )
 
+let task = null
+
 if (fs.existsSync(filePath)) {
 	console.log('Catalogs file exists. Fetching catalogs...')
-	fetchCatalogs()
-	cron.schedule('00 11 * * *', () => {
-		console.log('Scheduled job: Fetching catalogs...')
-		fetchCatalogs().then(() => {
-			console.log('Catalogs file updated.')
-			process.exit(0)
-		})
+	fetchCatalogs().then(() => {
+		console.log('Catalogs file updated.')
 	})
 } else {
 	console.log('Catalogs file does not exist. Creating file...')
-	fetchCatalogs().then(() => {
-		console.log('Catalogs file created. Fetching catalogs...')
-		fetchCatalogs().then(() => {
-			console.log('Catalogs file updated.')
-			cron.schedule('00 11 * * *', () => {
-				console.log('Scheduled job: Fetching catalogs...')
-				fetchCatalogs().then(() => {
-					console.log('Catalogs file updated.')
-					process.exit(0)
-				})
-			})
+	fetchCatalogs()
+		.then(() => {
+			console.log('Catalogs file created. Fetching catalogs...')
+			return fetchCatalogs()
 		})
-	})
+		.then(() => {
+			console.log('Catalogs file updated.')
+			if (typeof callback === 'function') {
+				callback()
+			}
+		})
 }
+
+task = cron.schedule('* * * * * *', () => {
+	console.log('Scheduled job: Fetching catalogs...')
+	fetchCatalogs().then(() => {
+		console.log('Catalogs file updated.')
+	})
+})
