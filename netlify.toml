@@ -1,9 +1,4 @@
 [[plugins]]
-  package = "netlify-plugin-delete-files"
-  [plugins.inputs]
-    patterns = ["src/data/catalogs.json"]
-
-[[plugins]]
   package = "netlify-plugin-run-cron"
   [plugins.inputs]
     timezone = "America/Argentina/Buenos_Aires"
