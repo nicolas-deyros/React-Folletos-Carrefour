@@ -2,6 +2,7 @@ import { promises as fs } from 'fs'
 import fetch from 'node-fetch'
 import cron from 'node-cron'
 import path from 'path'
+import { schedule } from '@netlify/functions'
 
 const handler = async (event, context) => {
 	const DATA_DIR = path.join(process.cwd(), 'src', 'data')
@@ -14,10 +15,14 @@ const handler = async (event, context) => {
 	}
 
 	async function fetchCatalogs() {
-		const response = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
-		const catalogs = await response.json()
-		await fs.writeFile(DATA_FILE, JSON.stringify(catalogs, null, 2))
-		console.log('Catalogs file created.')
+		try {
+			const response = await fetch('https://folletos.carrefour.com.ar/metadata/catalogs.json')
+			const catalogs = await response.json()
+			await fs.writeFile(DATA_FILE, JSON.stringify(catalogs, null, 2))
+			console.log('Catalogs file created.')
+		} catch (error) {
+			console.error('Error fetching catalogs:', error)
+		}
 	}
 
 	async function initCatalogs() {
@@ -32,4 +37,4 @@ const handler = async (event, context) => {
 	cron.schedule('0 0 * * *', initCatalogs)
 }
 
-export { handler }
+exports.handler = schedule('@hourly', handler)
