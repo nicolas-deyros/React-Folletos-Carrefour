@@ -34,7 +34,7 @@ const handler = async (event, context) => {
 		await fetchCatalogs()
 	}
 
-	cron.schedule('0 0 * * *', initCatalogs)
+	cron.schedule('0 0 * * *', initCatalogs())
 }
 
 exports.handler = schedule('@daily', handler)
